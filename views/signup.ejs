@@ -12,21 +12,7 @@
     <link rel="stylesheet" href="css/signup.css" />
   </head>
   <body>
-    <header>
-      <nav>
-        <h1>DPE</h1>
-        <ul>
-          <li><a href="">Shop</a></li>
-          <li>
-            <a href="">Cart<span></span></a>
-          </li>
-          <li><a href="">Orders</a></li>
-          <li><a href="">Log in</a></li>
-          <li><a href="">Sign up</a></li>
-          <li><a id="logout" href="">Log out</a></li>
-        </ul>
-      </nav>
-    </header>
+    <%- include('includes/header') %>
     <main>
       <h2>Create New Account</h2>
       <form action="/signup" method="POST">
@@ -48,7 +34,7 @@
         <input type="text" id="city" name="city" required />
         <button id="confirm-button">Create Account</button>
         <div>
-          <a id="createuserbtn" href="">Login Instead</a>
+          <a id="createuserbtn" href="/login">Login Instead</a>
         </div>
       </form>
     </main>

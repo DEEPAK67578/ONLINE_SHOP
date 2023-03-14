@@ -12,21 +12,7 @@
     <link rel="stylesheet" href="css/login.css"> 
 </head>
 <body>
-    <header>
-        <nav>
-          <h1>DPE</h1>
-          <ul>
-            <li><a href="">Shop</a></li>
-            <li>
-              <a href="">Cart<span></span></a>
-            </li>
-            <li><a href="">Orders</a></li>
-            <li><a href="">Log in</a></li>
-            <li><a href="">Sign up</a></li>
-            <li><a id="logout" href="">Log out</a></li>
-          </ul>
-        </nav>
-      </header>
+  <%- include('includes/header') %>
       <main>
         <h2>Login</h2>
         <form action="/login" method="POST">
@@ -36,7 +22,7 @@
             <input type="password" id="password" name="password" required>
             <button id="confirm-button">Login</button>
             <div>
-                <a id="createuserbtn" href="" >Create a new user</a>
+                <a id="createuserbtn" href="/signup" >Create a new user</a>
             </div>
             
         </form>

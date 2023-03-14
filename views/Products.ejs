@@ -12,28 +12,14 @@
     <link rel="stylesheet" href="css/products.css">
   </head>
   <body>
-    <header>
-      <nav>
-        <h1>DPE</h1>
-        <ul>
-          <li><a href="">Shop</a></li>
-          <li>
-            <a href="">Cart<span></span></a>
-          </li>
-          <li><a href="">Orders</a></li>
-          <li><a href="">Log in</a></li>
-          <li><a href="">Sign up</a></li>
-          <li><a id="logout" href="">Log out</a></li>
-        </ul>
-      </nav>
-    </header>
+    <%- include('includes/header') %>
     <main>
       <h2>All Products</h2>
       <section class="products">
         <img src="images/MK2D3.jpeg" alt="Magic pad">
         <h3>Magic Trackpad</h1>
         <div id="detail">
-          <a href="">View Details</a>
+          <a href="/details">View Details</a>
         </div>  
       </section>
     </main>

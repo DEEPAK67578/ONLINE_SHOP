@@ -2,8 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/',function(req,res) {
-    res.render('products')
+    res.redirect('/products')
+})
 
+router.get('/products',function(req,res) {
+    res.render('products')
 })
 
 module.exports = router
