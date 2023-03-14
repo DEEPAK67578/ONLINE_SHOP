@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="login.css"> 
+</head>
+<body>
+    <header>
+        <nav>
+          <h1>DPE</h1>
+          <ul>
+            <li><a href="">Shop</a></li>
+            <li>
+              <a href="">Cart<span></span></a>
+            </li>
+            <li><a href="">Orders</a></li>
+            <li><a href="">Log in</a></li>
+            <li><a href="">Sign up</a></li>
+            <li><a id="logout" href="">Log out</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <button id="confirm-button">Login</button>
+            <div>
+                <a id="createuserbtn" href="" >Create a new user</a>
+            </div>
+            
+        </form>
+      </main>
+</body>
+</html>

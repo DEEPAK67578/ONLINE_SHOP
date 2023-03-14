@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="signup.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1>DPE</h1>
+        <ul>
+          <li><a href="">Shop</a></li>
+          <li>
+            <a href="">Cart<span></span></a>
+          </li>
+          <li><a href="">Orders</a></li>
+          <li><a href="">Log in</a></li>
+          <li><a href="">Sign up</a></li>
+          <li><a id="logout" href="">Log out</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h2>Create New Account</h2>
+      <form action="/signup" method="POST">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required />
+        <label for="confirmemail">Confirm Email</label>
+        <input type="email" id="confirmemail" name="confirmemail" required />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+        <div id="border">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <label for="street">Street</label>
+        <input type="text" id="street" name="street" required />
+        <label for="postal">Postal Code</label>
+        <input type="number" id="postal" name="postalcode" required />
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" required />
+        <button id="confirm-button">Create Account</button>
+        <div>
+          <a id="createuserbtn" href="">Login Instead</a>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
