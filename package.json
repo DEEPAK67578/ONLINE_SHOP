@@ -1,0 +1,25 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "Online shop",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DEEPAK67578/ONLINE_SHOP.git"
+  },
+  "author": "Deepak Prakash",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DEEPAK67578/ONLINE_SHOP/issues"
+  },
+  "homepage": "https://github.com/DEEPAK67578/ONLINE_SHOP#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongodb": "^5.1.0",
+    "nodemon": "^2.0.21"
+  }
+}

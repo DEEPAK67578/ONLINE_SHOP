@@ -1,0 +1,70 @@
+body {
+    margin: 0px auto;
+
+}
+
+h2 {
+    color: white;
+}
+
+#cart {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(15, 15, 15);
+    padding: 10px 10px;
+    color: white;
+    border-radius: 8px;
+    width: 900px;
+    
+}
+
+h3 {
+    font-size: 18px;
+}
+
+p {
+    font-size: 13px;
+}
+
+#cart span {
+    color: grey;
+    font-style: italic;
+}
+
+form {
+    margin: auto 0;
+}
+
+
+button {
+    color: rgb(209, 139, 10);
+    background-color: rgb(15, 15, 15);
+    border: 1px solid orange; 
+    border-radius: 5px;
+    padding: 6px 8px; 
+}
+
+button:hover {
+    background-color: rgb(41, 41, 41);
+}
+
+#total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#total p{
+    color: orange;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+#totalbtn {
+    background-color: orange;
+    color: white;
+}
+
+#totalbtn:hover {
+    background-color: rgb(255, 184, 52);
+}

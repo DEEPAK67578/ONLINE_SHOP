@@ -8,8 +8,8 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="header.css" />
-    <link rel="stylesheet" href="orders.css">
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/cart.css" />
   </head>
   <body>
     <header>
@@ -28,9 +28,22 @@
       </nav>
     </header>
     <main>
-      <h2>All Your Orders</h2>
-      <section>
-
+      <h2>Your Cart</h2>
+      <section id="cart">
+        <div>
+          <h3>Magic Trackpad</h3>
+          <p>1000.0 Rs<span>(500.0 Rs)</span></p>
+        </div>
+        <form action="">
+          <input type="number"/>
+          <button>Update</button>
+        </form>
+      </section>
+      <section id="total">
+        <p>Total:<span>1000.0 Rs</span></p>
+        <div>
+          <a href="" id="totalbtn">Buy Products</a>
+        </div>
       </section>
     </main>
   </body>

@@ -37,17 +37,19 @@ a {
     color: rgb(209, 139, 10);
     font-size: 17px;  
     padding: 10px 15px;
+    border-radius: 5px;
 }
 
 a:hover {
     background-color: rgb(54, 54, 54);
-    border-radius: 5px;
+
 }
 
 #logout {
     border:1px solid orange;
     border-radius: 2px;
 }
+
 main {
     margin-left: 40px;
 }

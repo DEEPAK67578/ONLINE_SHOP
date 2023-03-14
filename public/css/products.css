@@ -1,0 +1,34 @@
+.products {
+    background-color: rgb(24, 23, 23);
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+main {
+    width: fit-content;
+}
+
+img {
+    width: 250px;
+    height: 180px;
+    object-fit:cover;
+}
+
+#detail {
+    padding-bottom: 20px;
+    
+}
+
+#detail a {
+    color: rgb(209, 139, 10);
+    background-color: rgb(24, 23, 23);
+    border: 1px solid orange; 
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+#detail a:hover {
+    background-color: rgb(41, 41, 41);
+}
