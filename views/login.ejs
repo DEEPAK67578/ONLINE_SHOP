@@ -9,17 +9,21 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/login.css"> 
+    <link rel="stylesheet" href="css/login.css">
+    <script src="scripts/cart-num.js" defer></script>
 </head>
 <body>
   <%- include('includes/header') %>
       <main>
         <h2>Login</h2>
         <form action="/login" method="POST">
+          <% if(input.message) { %>
+           <h2 id="message"><%= input.message %></h1>
+          <% } %>
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" value="<%= input.email %>" required>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" value="<%= input.password %>" required>
             <button id="confirm-button">Login</button>
             <div>
                 <a id="createuserbtn" href="/signup" >Create a new user</a>

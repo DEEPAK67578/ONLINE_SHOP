@@ -45,6 +45,11 @@ a:hover {
 
 }
 
+form {
+    margin: 0px;
+    
+}
+
 #logout {
     border:1px solid orange;
     border-radius: 2px;
@@ -65,4 +70,18 @@ main {
 
 h2 {
     color: white;
+}
+
+#cartSpan {
+    padding: 9px;
+    border-radius: 20px;
+    background-color: orange;
+    color: white;
+}
+
+#logoutform {
+    margin:0px;
+    padding:0px;
+    width: fit-content;
+    background-color: rgb(31, 30, 30)
 }

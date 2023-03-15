@@ -46,3 +46,11 @@ button:hover {
     background:none;
     border-radius: 0;
 }
+
+#message {
+    padding: 5px;
+    background-color: orange;
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+}
