@@ -171,7 +171,6 @@ router.post("/login", async function (req, res) {
     const email = req.body.email;
     const password = req.body.password
     const data = await db.getdb().collection('users').findOne({email:email})
-    console.log()
     if(!email||!password) {
         req.session.input = {
             iserror:true,
@@ -217,7 +216,7 @@ router.post("/login", async function (req, res) {
 
 router.post('/logout',function(req,res) {
   req.session.isAuth = false
-  req.session.user = null
+  req.session.user = {}
   res.redirect('/shop')
 })
 

@@ -16,8 +16,8 @@ const upload = multer({storage:storageConfig})
 
 router.get("/admin/add-product", async function (req, res) {
   const userData = req.session.user;
-  const { userEmail } = userData.email;
-  const user = await db.getdb().collection("users").findOne(userEmail);
+  const  userEmail  = userData.email;
+  const user = await db.getdb().collection("users").findOne({email:userEmail})
   if (req.session.isAuth) {
     if (user.isAuthenticated) {
       return res.render("Admin/addnewproducts");
@@ -29,8 +29,8 @@ router.get("/admin/add-product", async function (req, res) {
 
 router.get("/admin/products/new",async function(req,res) {
   const userData = req.session.user;
-  const { userEmail } = userData.email;
-  const user = await db.getdb().collection("users").findOne(userEmail);
+  const  userEmail  = userData.email;
+  const user = await db.getdb().collection("users").findOne({email:userEmail})
   if (req.session.isAuth) {
     if (user.isAuthenticated) {
       return res.render("Admin/newproductform");

@@ -9,8 +9,9 @@ router.get("/", function (req, res) {
 router.get("/shop", async function (req, res) {
   if (req.session.isAuth) {
     const userData = req.session.user;
-    const { userEmail } = userData.email;
-    const user = await db.getdb().collection("users").findOne(userEmail);
+    console.log(req.session.user)
+    const  userEmail  = userData.email;
+    const user = await db.getdb().collection("users").findOne({email:userEmail})
     console.log(user);
     if (user.isAuthenticated) {
       return res.render("Admin/products");
