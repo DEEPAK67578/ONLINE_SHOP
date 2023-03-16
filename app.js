@@ -6,6 +6,7 @@ const MongoSession = require('connect-mongodb-session')(session)
 
 const routes = require('./routes/routes')
 const authRoutes = require('./routes/auth')
+const admin = require('./routes/admin')
 
 const db = require('./data/database') 
 const app = express()
@@ -15,6 +16,7 @@ const MongoStoreSession = new MongoSession({
     uri:'mongodb://127.0.0.1:27017',
     collection:'session'
 })
+
 
 app.use(express.static('public'))
 
@@ -32,6 +34,8 @@ app.use(session({
 app.use(authRoutes)
 
 app.use(routes)
+
+app.use(admin)
 
 db.connectToDatabase().then(
     function() {

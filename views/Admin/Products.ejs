@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>All Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/products.css">
+  </head>
+  <body>
+    <%- include('includes/header') %>
+    <main>
+      <h2>All Products</h2>
+      <section class="products">
+        <img src="images/MK2D3.jpeg" alt="Magic pad">
+        <h3>Magic Trackpad</h1>
+        <div id="detail" class="detailAdmin">
+          <a href="/edit">View & Edit</a>
+          <form  action="/delete">
+            <button id="formDel">Delete</button>
+          </form>   
+        </div>   
+      </section>
+    </main>
+  </body>
+</html>

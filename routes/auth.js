@@ -19,7 +19,7 @@ router.get("/signup", function (req, res) {
     };
   }
   req.session.input = null;
-  res.render("signup", { input: input });
+  res.render("customer/signup", { input: input });
 });
 
 router.post("/signup", async function (req, res) {
@@ -94,6 +94,24 @@ router.post("/signup", async function (req, res) {
     return ;
   }
 
+  if(postal.length != 6) {
+    req.session.input = {
+      iserror: true,
+      message: "Please Enter a valid postal code",
+      email: email,
+      confirmEmail: confirmEmail,
+      password: password,
+      name: name,
+      street: street,
+      postal: postal,
+      city: city,
+    };
+    req.session.save(function() {
+        res.redirect('/signup')
+    })
+    return ;
+  }
+
   if (email != confirmEmail) {
     req.session.input = {
       iserror: true,
@@ -146,7 +164,7 @@ router.get("/login", function (req, res) {
         }
     }
   req.session.input = null
-  res.render("login",{input:input});
+  res.render("customer/login",{input:input});
 });
 
 router.post("/login", async function (req, res) {
@@ -196,5 +214,11 @@ router.post("/login", async function (req, res) {
     req.session.user = {email:email,password:password}
     res.redirect('/shop')
 });
+
+router.post('/logout',function(req,res) {
+  req.session.isAuth = false
+  req.session.user = null
+  res.redirect('/shop')
+})
 
 module.exports = router;
