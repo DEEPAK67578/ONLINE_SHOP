@@ -16,13 +16,17 @@
     <%- include('includes/header') %>
     <main>
       <h2>All Products</h2>
-      <section class="products">
-        <img src="images/MK2D3.jpeg" alt="Magic pad">
-        <h3>Magic Trackpad</h1>
-        <div id="detail">
-          <a href="/details">View Details</a>
-        </div>  
-      </section>
+      <div id="flex">
+        <% for (product of productData) { %>
+        <section class="products">
+          <img src="<%= product.imagePath %>" alt="Magic pad">
+          <h3><%= product.title %></h1>
+            <div id="detail">
+              <a href="<%= product._id %>/details">View Details</a>
+            </div>   
+        </section>
+        <% } %> 
+      </div>
     </main>
   </body>
 </html>

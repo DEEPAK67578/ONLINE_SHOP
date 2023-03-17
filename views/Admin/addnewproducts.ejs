@@ -19,16 +19,20 @@
       <div id="addproductdiv">
         <a id="addproductbtn" href="/admin/products/new">Add Product</a>
       </div>
-      <section class="products">
-        <img id="addprodimg" src="/images/MK2D3.jpeg" alt="Magic pad">
-        <h3>Magic Trackpad</h1>
-        <div id="detail" class="detailAdmin">
-          <a href="/edit">View & Edit</a>
-          <form  action="/delete">
-            <button id="formDel">Delete</button>
-          </form>   
-        </div>   
-      </section>
+      <div id="flex">
+        <% for (product of productData) { %>
+        <section class="products">
+          <img src="<%= product.imagePath %>" alt="Magic pad">
+          <h3><%= product.title %></h1>
+          <div id="detail" class="detailAdmin">
+            <a href="/edit">View & Edit</a>
+            <form  action="/delete">
+              <button id="formDel">Delete</button>
+            </form>
+          </div>   
+        </section>
+        <% } %> 
+      </div>
     </main>
   </body>
 </html>

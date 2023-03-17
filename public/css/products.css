@@ -8,6 +8,7 @@
     color: white;
     border-radius: 10px;
     overflow: hidden;
+    margin-right: 15px;
 }
 
 main {
@@ -72,4 +73,8 @@ img {
 #addprodimg {
     width: 275px;
     height: 195px
+}
+
+#flex {
+    display: flex;
 }

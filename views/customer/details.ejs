@@ -8,23 +8,24 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/details.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/details.css" />
     <script src="scripts/listeners.js" defer></script>
   </head>
   <body>
     <%- include('includes/header') %>
     <main>
         <section class="products">
-            <img src="images/MK2D3.jpeg" alt="Magic pad">
+            <img src="/<%= productDetails.imagePath %>" alt="Magic pad">
             <div id="detail">
-              <h3>Magic Trackpad</h1>
-              <p>Rs 500.0</p>
-               <a id="addToCart">Add to cart</a>
+              <h3><%= productDetails.title %></h1>
+              <p>Rs <%= productDetails.price %></p>
+            <form action="/<%= productDetails._id %>/details" method="POST">
+                <button id="addToCart">Add to Cart</button>
             </div>
         </section>
       <section class="product-details">
-        <p>This helps a lot with smoothly navigating around on your system</p>
+        <p><%= productDetails.summary %></p>
       </section>
     </main>
   </body>

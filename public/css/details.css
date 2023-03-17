@@ -55,3 +55,16 @@ img {
     color: white;
     font-size: 15px;
 }
+
+#addToCart {
+    background-color: orange;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+}
+
+#addToCart:hover {
+    background-color: rgb(179, 118, 6);
+}

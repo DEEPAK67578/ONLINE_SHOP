@@ -20,6 +20,10 @@ const MongoStoreSession = new MongoSession({
 
 app.use(express.static('public'))
 
+app.use('/images',express.static('images'))
+
+app.use('/admin/images',express.static('images'))
+
 app.set('view engine','ejs')
 
 app.set('views',path.join(__dirname,'views'))
@@ -30,12 +34,13 @@ app.use(session({
     resave:false,
     store:MongoStoreSession
 }))
-
+app.use(admin)
+app.use(routes)
 app.use(authRoutes)
 
-app.use(routes)
 
-app.use(admin)
+
+
 
 db.connectToDatabase().then(
     function() {

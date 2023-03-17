@@ -15,24 +15,42 @@
   <body>
     <%- include('includes/header') %>
     <h2>Add new Product</h2>
-    <main >
-      <form id="mainform" action="/admin/products/new" method="POST" enctype="multipart/form-data">
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title"  required />
-        <label for="image">Image</label>
-        <input type="file" id="Image" accept=".jpg,.png" required>
-        <label for="Summary">Summary</label>
-        <input type="text" id="summary" name="summary" required />
-        <label for="price">Price</label>
-        <input type="number" id="price" name="price" required />
-        <label for="description">Description</label>
-        <textarea name="description" id="description"></textarea>
-        <button id="confirm-button">Save</button>
-        <form action="/admin/products/reset" method="post">
+    <main>
+      <form
+        id="mainform"
+        action="/admin/products/new"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div>
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required />
+        </div>
+        <div>
+          <label for="image">Image</label>
+          <input type="file" id="image" name="image" required />
+        </div>
+        <div>
+          <label for="Summary">Summary</label>
+          <input type="text" id="summary" name="summary" required />
+        </div>
+        <div>
+          <label for="price">Price</label>
+          <input type="number" id="price" name="price" required />
+        </div>
+        <div>
+          <label for="description">Description</label>
+          <textarea name="description" id="description"></textarea>
+        </div>
+        <div>
+          <button id="confirm-button">Save</button>
+        </div>
+        <div>
+          <form action="/admin/products/reset" method="post">
             <button id="resetbtn">Reset</button>
-        </form>
+          </form>
+        </div>
       </form>
-      
     </main>
   </body>
 </html>
