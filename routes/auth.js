@@ -216,8 +216,8 @@ router.post("/login", async function (req, res) {
 
 router.post('/logout',function(req,res) {
   req.session.isAuth = false
-  req.session.user = {}
-  req.session.cart = {}
+  req.session.user = null
+  req.session.cartQuantity = 0
   res.redirect('/login')
 })
 

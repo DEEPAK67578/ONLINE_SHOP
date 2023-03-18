@@ -35,12 +35,8 @@ app.use(session({
     store:MongoStoreSession
 }))
 app.use(admin)
-app.use(routes)
 app.use(authRoutes)
-
-
-
-
+app.use(routes)
 
 db.connectToDatabase().then(
     function() {

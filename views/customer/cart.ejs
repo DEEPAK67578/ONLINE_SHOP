@@ -13,25 +13,32 @@
     <script src="scripts/cart-num.js" defer></script>
   </head>
   <body>
-     <%- include('includes/header') %>
+     <%- include('includes/head',{quantity:quantity})%>
     <main>
+      <% if(!isAuth) { %>
+        <h1>Please Log in to View the Cart</h1>
+      <% } %>
+      <% if(isAuth) { %>
       <h2>Your Cart</h2>
+      <% for(let cart of cartItems) { %>
       <section id="cart">
         <div>
-          <h3>Magic Trackpad</h3>
-          <p>1000.0 Rs<span>(500.0 Rs)</span></p>
+          <h3><%= cart.productName %></h3>
+          <p>Rs <%= cart.price %> <span>(<%= cart.price * cart.items %> Rs)</span></p>
         </div>
         <form action="">
-          <input type="number" name="count"/>
+          <input type="number" name="count" value="<%= cart.items %>"/>
           <button>Update</button>
         </form>
       </section>
+      <% } %>
       <section id="total">
-        <p>Total:<span>1000.0 Rs</span></p>
+        <p>Total:<span><%= cartValue %> Rs</span></p>
         <div>
           <a href="" id="totalbtn">Buy Products</a>
         </div>
       </section>
+      <% } %>
     </main>
   </body>
 </html>

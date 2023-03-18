@@ -13,8 +13,10 @@
     <script src="scripts/listeners.js" defer></script>
   </head>
   <body>
-    <%- include('includes/header') %>
-    <main>
+    <%- include('includes/head',{quantity:quantity} ) %>
+    <main><% if(input.message) { %>
+      <h1><%= input.message %></h1>
+      <% } %>
         <section class="products">
             <img src="/<%= productDetails.imagePath %>" alt="Magic pad">
             <div id="detail">

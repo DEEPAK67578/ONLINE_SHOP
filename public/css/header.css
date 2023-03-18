@@ -90,3 +90,11 @@ h2 {
     width: fit-content;
     background-color: rgb(31, 30, 30)
 }
+
+#cartnum {
+    background-color: orange;
+    border-radius: 20px;
+    padding: 5px 15px;
+    color: white;
+    font-size: 18px;
+}
