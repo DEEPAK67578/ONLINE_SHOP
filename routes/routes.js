@@ -28,7 +28,7 @@ router.get("/shop", async function (req, res) {
       });
     }
   }
-  res.render("customer/products", { productData: productData,quantity:req.session.cartQuantity});
+  res.render("customer/products", { productData: productData});
 });
 
 router.get("/cart", async function (req, res) {
@@ -47,10 +47,10 @@ router.get("/cart", async function (req, res) {
     return res.render("customer/cart", {
       cartItems: cartItems,
       cartValue: cartValue,
-      isAuth: req.session.isAuth,quantity:req.session.cartQuantity
+      isAuth: req.session.isAuth
     });
   }
-  res.render("customer/cart", { isAuth: req.session.isAuth,quantity:req.session.cartQuantity});
+  res.render("customer/cart", { isAuth: req.session.isAuth });
 });
 
 router.get("/:id/details", async function (req, res) {
@@ -66,19 +66,9 @@ router.get("/:id/details", async function (req, res) {
     };
   }
   req.session.inputData = null;
-  let quantity = 0
-  if(req.session.isAuth) {
-    const user = req.session.user;
-    const cartItems = await db.getdb().collection('cart').find({user:user.email}).toArray()
-    for(const cartItem of cartItems) {
-      quantity = quantity + cartItem.items
-    }
-  }
-  req.session.cartQuantity = quantity
   return res.render("customer/details", {
     productDetails: productDetails,
-    input: inputData,
-    quantity:req.session.cartQuantity
+    input: inputData
   });
 });
 
