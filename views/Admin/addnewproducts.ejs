@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>All Products</title>
+    <title>Add New Product or edit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,10 +25,10 @@
           <img src="<%= product.imagePath %>" alt="Magic pad">
           <h3><%= product.title %></h1>
           <div id="detail" class="detailAdmin">
-            <a href="/edit">View & Edit</a>
-            <form  action="/delete">
-              <button id="formDel">Delete</button>
-            </form>
+            <a href="/<%= product._id %>/edit">View & Edit</a>
+              <form action="/<%= product._id %>/delete" method="POST">
+                <button id="formDel">Delete</button>
+              </form>
           </div>   
         </section>
         <% } %> 

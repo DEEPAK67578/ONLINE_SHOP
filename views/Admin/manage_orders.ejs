@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Orders</title>
+    <title>Mange Orders</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/orders.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/orders.css" />
     <script src="scripts/cart-num.js" defer></script>
   </head>
   <body>
-    <%- include('includes/head')%>
-    <main>
-    <% if(!isAuth) { %>
-        <h1>Please log in to purchase and view the orders</h1>
-    <% } %>
-    <% if(isAuth) { %>
-      <h1>All Your Orders</h1>
+    <%- include('includes/header')%>
+    <h1>All Orders</h1>
+    <main id="main-content">
+      
       <% for(const order of orderDetails) { %>
       <section id="order">
         <div class="orderDetails">
@@ -28,6 +25,8 @@
             <% price = price + order.productDetails[i].Items * order.productDetails[i].price %>
         <% } %>
           <p><span>Rs <%= price %> - </span><%= order.humanReadableDate %></p>
+          <span><%= order.userData.name %></span>
+          <p><%= order.userData.street %> (<%= order.userData.postal %> <%= order.userData.city %>)</p>
           <ul class="products">
             <% for (let i=0; i < order.productDetails.length; i++) { %>
             <li><%= order.productDetails[i].Products %>- <%= order.productDetails[i].price * order.productDetails[i].Items %> (<%= order.productDetails[i].Items+" x "+ order.productDetails[i].price %>)</li>
@@ -38,8 +37,17 @@
           <h3><%= order.OrderStatus %></h3>
         </div>
       </section>
+      <form action="/admin/manage-orders/<%= order._id %>" method="POST">
+        <select name="orderStatus" id="">
+            <option value="Pending">Pending</option>
+            <option value="Fullfilled">Fullfilled</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+        <button>Update</button>
+      </form>
       <% } %>
-      <% } %>
+      
+      
     </main>
   </body>
 </html>

@@ -138,7 +138,9 @@ router.post("/:id/details", async function (req, res) {
 });
 
 router.get("/orders", async function (req, res) {
-  const user = req.session.user;
+  if(req.session.isAuth) {
+    const user = req.session.user;
+  const userData = await db.getdb().collection('users').findOne({email:user.email})
   const data = await db
     .getdb()
     .collection("cart")
@@ -173,6 +175,7 @@ router.get("/orders", async function (req, res) {
             date: new Date(),
             user: user.email,
             OrderStatus: "Pending",
+            userData:userData
           }])
   }
     
@@ -181,9 +184,6 @@ router.get("/orders", async function (req, res) {
   let price = 0
   console.log(orderDetails)
   for(const order of orderDetails) {
-    for(let i=0;i<order.productDetails.length;i++) {
-      price = price + order.productDetails[i].price * order.productDetails[i].Items
-    }
     if(!order.humanReadableDate) {
     order.humanReadableDate = order.date.toLocaleDateString("en-us" , {
       weekday: "long",
@@ -195,8 +195,9 @@ router.get("/orders", async function (req, res) {
     await db.getdb().collection('order').updateMany({user:user.email,date:order.date},{$set:{date:order.normdate,humanReadableDate:order.humanReadableDate}})
   }
   }
-  
-  res.render("customer/orders",{orderDetails:orderDetails,price:price});
+  return res.render("customer/orders",{orderDetails:orderDetails,isAuth:req.session.isAuth})
+  }
+  res.render("customer/orders",{isAuth:req.session.isAuth})
 });
 
 module.exports = router;

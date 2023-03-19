@@ -1,9 +1,11 @@
+
+
 #order {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: rgb(66, 66, 66);
-    padding: 15px;
+    padding: 5px;
     color: white;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -32,4 +34,25 @@
 .products li {
     margin-left: 18px;
     margin-bottom: 4px;
+}
+
+
+button {
+    margin: 5px auto;
+    background-color: rgb(32, 32, 32);
+    padding: 6px 17px;
+    color: orange;
+    border-radius: 2px;
+    border: 1px solid orange;
+}
+
+button:hover {
+    background-color: rgb(65, 65, 65);
+}
+
+select {
+    padding: 6px;
+    border-radius: 2px;
+    color: black;
+    background-color: white;
 }
