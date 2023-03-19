@@ -16,7 +16,6 @@ router.get("/shop", async function (req, res) {
 
   if (req.session.isAuth) {
     const userData = req.session.user;
-    console.log(req.session.user);
     const userEmail = userData.email;
     const user = await db
       .getdb()
@@ -28,18 +27,17 @@ router.get("/shop", async function (req, res) {
       });
     }
   }
-  res.render("customer/products", { productData: productData});
+  res.render("customer/products", { productData: productData });
 });
 
 router.get("/cart", async function (req, res) {
   if (req.session.isAuth) {
     const user = req.session.user;
-    const cartItems = await db
+    let cartItems = await db
       .getdb()
       .collection("cart")
       .find({ user: user.email })
       .toArray();
-
     let cartValue = 0;
     for (const cart of cartItems) {
       cartValue = cartValue + cart.price * cart.items;
@@ -47,10 +45,32 @@ router.get("/cart", async function (req, res) {
     return res.render("customer/cart", {
       cartItems: cartItems,
       cartValue: cartValue,
-      isAuth: req.session.isAuth
+      isAuth: req.session.isAuth,
     });
   }
   res.render("customer/cart", { isAuth: req.session.isAuth });
+});
+
+router.post("/cart/:id", async function (req, res) {
+  const user = req.session.user;
+  await db
+    .getdb()
+    .collection("cart")
+    .updateMany(
+      { _id: new ObjectId(req.params.id) },
+      { $set: { items: Number(req.body.count) } }
+    );
+  const cartItems = await db
+    .getdb()
+    .collection("cart")
+    .findOne({ _id: new ObjectId(req.params.id) });
+  if (cartItems.items <= 0) {
+    await db
+      .getdb()
+      .collection("cart")
+      .deleteOne({ _id: new ObjectId(req.params.id) });
+  }
+  res.redirect("/cart");
 });
 
 router.get("/:id/details", async function (req, res) {
@@ -68,7 +88,7 @@ router.get("/:id/details", async function (req, res) {
   req.session.inputData = null;
   return res.render("customer/details", {
     productDetails: productDetails,
-    input: inputData
+    input: inputData,
   });
 });
 
@@ -90,13 +110,13 @@ router.post("/:id/details", async function (req, res) {
     const data = await db
       .getdb()
       .collection("cart")
-      .findOne({ productid: req.params.id, user: user.email});
+      .findOne({ productid: req.params.id, user: user.email });
     if (data) {
       await db
         .getdb()
         .collection("cart")
         .updateOne(
-          { productid: req.params.id,user:user.email },
+          { productid: req.params.id, user: user.email },
           { $set: { items: data.items + 1 } }
         );
     } else {
@@ -115,6 +135,68 @@ router.post("/:id/details", async function (req, res) {
     }
     res.redirect("/" + req.params.id + "/details");
   }
+});
+
+router.get("/orders", async function (req, res) {
+  const user = req.session.user;
+  const data = await db
+    .getdb()
+    .collection("cart")
+    .find({ user: user.email })
+    .toArray();
+  let products
+  let allProducts = []
+  await db
+    .getdb()
+    .collection("cart")
+    .updateMany({ user: user.email }, { $set: { isorder: true } });
+  
+  
+  for (const datavalue of data) {
+    if (datavalue.user == user.email) {
+      products =
+        {
+          Products: datavalue.productName,
+          price: datavalue.price,
+          Items: datavalue.items,
+        } 
+        allProducts.push(products)
+    }
+  }
+  if(res.locals.quantity!=0) {
+    await db
+        .getdb()
+        .collection("order")
+        .insertMany([
+          {
+            productDetails: allProducts,
+            date: new Date(),
+            user: user.email,
+            OrderStatus: "Pending",
+          }])
+  }
+    
+  const orderDetails=await db.getdb().collection('order').find({user:user.email}).toArray()
+  await db.getdb().collection("cart").deleteMany({ isorder: true })
+  let price = 0
+  console.log(orderDetails)
+  for(const order of orderDetails) {
+    for(let i=0;i<order.productDetails.length;i++) {
+      price = price + order.productDetails[i].price * order.productDetails[i].Items
+    }
+    if(!order.humanReadableDate) {
+    order.humanReadableDate = order.date.toLocaleDateString("en-us" , {
+      weekday: "long",
+      year:"numeric",
+      month:"long",
+      day:"numeric"
+    })
+    order.normdate = order.date.toISOString()
+    await db.getdb().collection('order').updateMany({user:user.email,date:order.date},{$set:{date:order.normdate,humanReadableDate:order.humanReadableDate}})
+  }
+  }
+  
+  res.render("customer/orders",{orderDetails:orderDetails,price:price});
 });
 
 module.exports = router;

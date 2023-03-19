@@ -46,17 +46,15 @@ app.use(async function (req, res, next) {
       .find({ user: user.email })
       .toArray();
     for (const cartItem of cartItems) {
-      console.log(cartItem)
       quantity = quantity + cartItem.items;
-      res.locals.quantity = quantity;
     }
-    return next()
+    res.locals.quantity = quantity;
+    return next();
   }
-  if(!req.session.isAuth) {
+  if (!req.session.isAuth) {
     res.locals.quantity = 0;
     return next();
   }
-  
 });
 app.use(admin);
 app.use(authRoutes);

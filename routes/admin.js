@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const db = require("../data/database");
 const multer = require("multer");
+const mongodb = require("mongodb");
+const ObjectId = mongodb.ObjectId;
+const fs = require('fs-extra')
 
 const storageConfig = multer.diskStorage({
   destination: "images",
@@ -13,7 +16,11 @@ const storageConfig = multer.diskStorage({
 const upload = multer({ storage: storageConfig });
 
 router.get("/admin/add-product", async function (req, res) {
-  const productData =await db.getdb().collection('productDetails').find().toArray()
+  const productData = await db
+    .getdb()
+    .collection("productDetails")
+    .find()
+    .toArray();
   const userData = req.session.user;
   const userEmail = userData.email;
   const user = await db
@@ -22,7 +29,7 @@ router.get("/admin/add-product", async function (req, res) {
     .findOne({ email: userEmail });
   if (req.session.isAuth) {
     if (user.isAuthenticated) {
-      return res.render("Admin/addnewproducts",{productData:productData});
+      return res.render("Admin/addnewproducts", { productData: productData });
     }
   }
   res.status(404).render("404");
@@ -61,11 +68,90 @@ router.post(
           summary: summary,
           price: price,
           description: description,
-          imagePath: uploadedimage.path
+          imagePath: uploadedimage.path,
         },
       ]);
     res.redirect("/");
   }
 );
+
+router.get("/:id/edit", async function (req, res) {
+  const userData = req.session.user;
+  const userEmail = userData.email;
+  const user = await db
+    .getdb()
+    .collection("users")
+    .findOne({ email: userEmail });
+  if (req.session.isAuth) {
+    if (user.isAuthenticated) {
+      const data = await db
+        .getdb()
+        .collection("productDetails")
+        .findOne({ _id: new ObjectId(req.params.id)});
+      return res.render("Admin/edit", { data: data });
+    }
+    res.status(404).render("404");
+  }
+});
+
+router.post("/:id/edit",upload.single("images"),
+ async function (req, res) {
+  const uploadedimage = req.file;
+  const title = req.body.title;
+  const summary = req.body.summary;
+  const price = req.body.price;
+  const description = req.body.description;
+  const data = await db
+  .getdb()
+  .collection("productDetails")
+  .findOne({ _id: new ObjectId(req.params.id) })
+  if(uploadedimage) {
+    fs.remove(data.imagePath)
+    await db
+    .getdb()
+    .collection("productDetails")
+    .updateMany(
+      { _id: new ObjectId(req.params.id) },
+      {
+        $set: {
+          title: title,
+          summary: summary,
+          price: price,
+          description: description,
+          imagePath: uploadedimage.path,
+        },
+      }
+    );
+  } else {
+    await db
+    .getdb()
+    .collection("productDetails")
+    .updateMany(
+      { _id: new ObjectId(req.params.id) },
+      {
+        $set: {
+          title: title,
+          summary: summary,
+          price: price,
+          description: description
+        },
+      }
+    )
+  }
+ 
+  res.redirect("/");
+});
+
+router.post("/:id/delete",async function(req,res) {
+  const data = await db
+  .getdb()
+  .collection("productDetails")
+  .findOne({ _id: new ObjectId(req.params.id) })
+  fs.remove(data.imagePath)
+  await db.getdb().collection("productDetails").deleteOne({_id:new ObjectId(req.params.id)})
+  res.redirect('/')
+
+
+})
 
 module.exports = router;

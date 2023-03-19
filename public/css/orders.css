@@ -1,0 +1,35 @@
+#order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(66, 66, 66);
+    padding: 15px;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#orderStatus h3 {
+    padding: 2px 6px;
+    background-color: orange;
+    border-radius: 10px;
+}
+
+#order span {
+    color: orange;
+}
+
+.orderDetails p {
+    margin: 5px 0px;
+
+}
+.products {
+    padding-left: 0px;
+    display: block;
+    list-style: disc;
+}
+
+.products li {
+    margin-left: 18px;
+    margin-bottom: 4px;
+}

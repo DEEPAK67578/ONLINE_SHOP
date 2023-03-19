@@ -16,13 +16,13 @@
     <main>
       <h2>All Products</h2>
         <div id="flex">
-          <% for (product of productData) { %>
+          <% for (const product of productData) { %>
           <section class="products">
             <img src="<%= product.imagePath %>" alt="Magic pad">
             <h3><%= product.title %></h1>
             <div id="detail" class="detailAdmin">
-              <a href="/edit">View & Edit</a>
-              <form  action="/delete">
+              <a href="/<%= product._id %>/edit">View & Edit</a>
+              <form action="/<%= product._id %>/delete" method="POST">
                 <button id="formDel">Delete</button>
               </form>
             </div>   

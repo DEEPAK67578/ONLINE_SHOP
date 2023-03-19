@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>All Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/orders.css" />
+    <script src="scripts/cart-num.js" defer></script>
+  </head>
+  <body>
+    <%- include('includes/head')%>
+    <main>
+      <h1>All Your Orders</h1>
+      <% for(const order of orderDetails) { %>
+      <section id="order">
+        <div class="orderDetails">
+          <p><span>Rs <%= price %> - </span><%= order.humanReadableDate %></p>
+          <ul class="products">
+            <% for (let i=0; i < order.productDetails.length; i++) { %>
+            <li><%= order.productDetails[i].Products %>- <%= order.productDetails[i].price * order.productDetails[i].Items %> (<%= order.productDetails[i].Items+" x "+ order.productDetails[i].price %>)</li>
+            <% } %>
+          </ul>
+        </div>
+        <div id="orderStatus">
+          <h3><%= order.OrderStatus %></h3>
+        </div>
+      </section>
+      <% } %>
+    </main>
+  </body>
+</html>

@@ -20,13 +20,14 @@
       <% } %>
       <% if(isAuth) { %>
       <h2>Your Cart</h2>
+
       <% for(let cart of cartItems) { %>
       <section id="cart">
         <div>
           <h3><%= cart.productName %></h3>
           <p>Rs <%= cart.price %> <span>(<%= cart.price * cart.items %> Rs)</span></p>
         </div>
-        <form action="">
+        <form action="/cart/<%= cart._id %>" method="POST">
           <input type="number" name="count" value="<%= cart.items %>"/>
           <button>Update</button>
         </form>
@@ -35,7 +36,7 @@
       <section id="total">
         <p>Total:<span><%= cartValue %> Rs</span></p>
         <div>
-          <a href="" id="totalbtn">Buy Products</a>
+          <a href="/orders" id="totalbtn">Buy Products</a>
         </div>
       </section>
       <% } %>
