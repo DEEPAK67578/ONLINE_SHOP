@@ -49,10 +49,12 @@ app.use(async function (req, res, next) {
       quantity = quantity + cartItem.items;
     }
     res.locals.quantity = quantity;
+    res.locals.isAuth = req.session.isAuth
     return next();
   }
   if (!req.session.isAuth) {
     res.locals.quantity = 0;
+    res.locals.isAuth = req.session.isAuth
     return next();
   }
 });

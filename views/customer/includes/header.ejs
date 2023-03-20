@@ -2,17 +2,26 @@
     <nav>
       <h1>DPE</h1>
       <ul>
+        <% if(!locals.isAuth || locals.isAuth) { %>
         <li><a href="/shop">Shop</a></li>
+        <% } %>
+        <% if(locals.isAuth) { %>
         <li>
           <a href="/cart" id="cartbtn">Cart <span id="cartnum"><%= locals.quantity %></span></a>
         </li>
         <li><a href="/orders">Orders</a></li>
+        <% } %>
+        <% if(!locals.isAuth) {%>
         <li><a href="/login">Log in</a></li>
         <li><a href="/signup">Sign up</a></li>
+        <% } %>
+        <% if(locals.isAuth) { %>
         <li>
             <form id="logoutform" action="/logout" method="POST">
                 <button id="logout">Logout</button>    
             </form>
+        </li>
+        <% } %>
       </ul>
     </nav>
   </header>
