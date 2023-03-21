@@ -5,7 +5,7 @@ const multer = require("multer");
 const mongodb = require("mongodb");
 const ObjectId = mongodb.ObjectId;
 const fs = require("fs-extra");
-const { use } = require("./routes");
+const AdminModal = require('../modals/admin.modal')
 
 const storageConfig = multer.diskStorage({
   destination: "images",
@@ -17,17 +17,10 @@ const storageConfig = multer.diskStorage({
 const upload = multer({ storage: storageConfig });
 
 router.get("/admin/add-product", async function (req, res) {
-  const productData = await db
-    .getdb()
-    .collection("productDetails")
-    .find()
-    .toArray();
+  const productData =await new AdminModal.ProductData(null,null).ProductDetails()
   const userData = req.session.user;
   const userEmail = userData.email;
-  const user = await db
-    .getdb()
-    .collection("users")
-    .findOne({ email: userEmail });
+  const user = await new AdminModal.ProductData(null,userEmail).user()
   if (req.session.isAuth) {
     if (user.isAuthenticated) {
       return res.render("Admin/addnewproducts", { productData: productData });
@@ -39,10 +32,7 @@ router.get("/admin/add-product", async function (req, res) {
 router.get("/admin/products/new", async function (req, res) {
   const userData = req.session.user;
   const userEmail = userData.email;
-  const user = await db
-    .getdb()
-    .collection("users")
-    .findOne({ email: userEmail });
+  const user = await new AdminModal.ProductData(null,userEmail).user();
   if (req.session.isAuth) {
     if (user.isAuthenticated) {
       return res.render("Admin/newproductform");
@@ -60,18 +50,7 @@ router.post(
     const summary = req.body.summary;
     const price = req.body.price;
     const description = req.body.description;
-    await db
-      .getdb()
-      .collection("productDetails")
-      .insertMany([
-        {
-          title: title,
-          summary: summary,
-          price: price,
-          description: description,
-          imagePath: uploadedimage.path,
-        },
-      ]);
+    await new AdminModal.insertMany(title,summary,price,description,uploadedimage.path,null).insertMany()
     res.redirect("/");
   }
 );
@@ -85,10 +64,7 @@ router.get("/:id/edit", async function (req, res) {
     .findOne({ email: userEmail });
   if (req.session.isAuth) {
     if (user.isAuthenticated) {
-      const data = await db
-        .getdb()
-        .collection("productDetails")
-        .findOne({ _id: new ObjectId(req.params.id) });
+      const data = await new AdminModal.ProductData(req.params.id,null).productOne()
       return res.render("Admin/edit", { data: data });
     }
     res.status(404).render("404");
@@ -101,42 +77,12 @@ router.post("/:id/edit", upload.single("images"), async function (req, res) {
   const summary = req.body.summary;
   const price = req.body.price;
   const description = req.body.description;
-  const data = await db
-    .getdb()
-    .collection("productDetails")
-    .findOne({ _id: new ObjectId(req.params.id) });
+  const data = await new AdminModal.ProductData(req.params.id,null).productOne();
   if (uploadedimage) {
     fs.remove(data.imagePath);
-    await db
-      .getdb()
-      .collection("productDetails")
-      .updateMany(
-        { _id: new ObjectId(req.params.id) },
-        {
-          $set: {
-            title: title,
-            summary: summary,
-            price: price,
-            description: description,
-            imagePath: uploadedimage.path,
-          },
-        }
-      );
+    await new AdminModal.insertMany(title,summary,price,description,uploadedimage.path,req.params.id).updateMany()
   } else {
-    await db
-      .getdb()
-      .collection("productDetails")
-      .updateMany(
-        { _id: new ObjectId(req.params.id) },
-        {
-          $set: {
-            title: title,
-            summary: summary,
-            price: price,
-            description: description,
-          },
-        }
-      );
+    await new AdminModal.insertMany(title,summary,price,description,null,req.params.id).updateExeptImage()
   }
 
   res.redirect("/");
@@ -145,21 +91,12 @@ router.post("/:id/edit", upload.single("images"), async function (req, res) {
 router.post("/:id/delete", async function (req, res) {
   const userData = req.session.user;
   const userEmail = userData.email;
-  const user = await db
-    .getdb()
-    .collection("users")
-    .findOne({ email: userEmail });
+  const user = await new AdminModal.ProductData(null,userEmail).user();
   if (req.session.isAuth) {
     if (user.isAuthenticated) {
-      const data = await db
-        .getdb()
-        .collection("productDetails")
-        .findOne({ _id: new ObjectId(req.params.id) });
+      const data = await new AdminModal.ProductData(req.params.id,null).productOne();
       fs.remove(data.imagePath);
-      await db
-        .getdb()
-        .collection("productDetails")
-        .deleteOne({ _id: new ObjectId(req.params.id) });
+      await new AdminModal.ProductData(req.params.id,null).deleteProduct();
       res.redirect("/");
     }
   }
@@ -174,7 +111,7 @@ router.get("/admin/manage-orders", async function (req, res) {
     .findOne({ email: userEmail });
   if (req.session.isAuth) {
     if (user.isAuthenticated) {
-      const orders = await db.getdb().collection("order").find().toArray();
+      const orders = await new AdminModal.order(null,null).AllOrders();
       res.render("Admin/manage_orders", { orderDetails: orders });
     }
   }
@@ -183,13 +120,7 @@ router.get("/admin/manage-orders", async function (req, res) {
 router.post("/admin/manage-orders/:id", async function (req, res) {
   const orderStatus = req.body.orderStatus;
   const id = req.params.id;
-  await db
-    .getdb()
-    .collection("order")
-    .updateOne(
-      { _id: new ObjectId(id) },
-      { $set: { OrderStatus: orderStatus } }
-    );
+  await new AdminModal.order(id,orderStatus).updateOrder();
   res.redirect("/admin/manage-orders");
 });
 module.exports = router;
