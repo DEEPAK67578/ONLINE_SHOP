@@ -4,7 +4,7 @@ const path = require("path");
 const session = require("express-session");
 const MongoSession = require("connect-mongodb-session")(session);
 
-const routes = require("./routes/routes");
+const routes = require("./routes/customer");
 const authRoutes = require("./routes/auth");
 const admin = require("./routes/admin");
 
